@@ -20,7 +20,7 @@ function getApi(event) {
     console.log("submit");
     
     // save environmental key as variable
-    var requestGeocodingUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${geoAPIKey}`;
+    var requestGeocodingUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${geoAPIKey}`;
 
 
   fetch(requestGeocodingUrl)
@@ -91,6 +91,7 @@ function printCurrentWeather(data) {
 }
 
 function printfiveDayForecast(data) {
+
 
 
 }
