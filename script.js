@@ -73,7 +73,7 @@ function printCurrentWeather(data) {
 
     var tempEl = document.createElement("p");
     tempEl.classList.add("card-text");
-    tempEl.textContent = `Temperature: ${data.current.temp}`;
+    tempEl.textContent = `Temp: ${data.current.temp}`;
     
     var windEl = document.createElement("p");
     windEl.classList.add("card-text");
@@ -92,6 +92,39 @@ function printCurrentWeather(data) {
 
 function printfiveDayForecast(data) {
 
+    fiveDayForecastEl.innerHTML = "";
+
+    for (i=0; i<5; i++) {
+        var fiveDayForecastCardEl = document.createElement("div");
+        fiveDayForecastCardEl.classList.add('card', 'bg-dark','text-light','col-md-2', 'mb-1','p-1');
+        fiveDayForecastEl.append(fiveDayForecastCardEl);
+    
+        var fiveDayForecastCardBodyEl = document.createElement("div");
+        fiveDayForecastCardBodyEl.classList.add("card-body");
+        fiveDayForecastCardEl.append(fiveDayForecastCardBodyEl);
+    
+        var cityDateEl = document.createElement("h3");
+        cityDateEl.classList.add("card-title");
+        cityDateEl.textContent = "Date here";
+    
+        var iconEl = document.createElement("p");
+        iconEl.classList.add("card-text");
+        iconEl.textContent = "Icon here";
+    
+        var tempEl = document.createElement("p");
+        tempEl.classList.add("card-text");
+        tempEl.textContent = `Temp: ${data.daily[i].temp.day}`;
+        
+        var windEl = document.createElement("p");
+        windEl.classList.add("card-text");
+        windEl.textContent = `Wind Speed: ${data.daily[i].wind_speed}`;
+        
+        var humidityEl = document.createElement("p");
+        humidityEl.classList.add("card-text");
+        humidityEl.textContent = `Humidity: ${data.daily[i].humidity}`;
+        
+        fiveDayForecastCardBodyEl.append(cityDateEl, iconEl, tempEl, windEl, humidityEl);
+    }
 
 
 }

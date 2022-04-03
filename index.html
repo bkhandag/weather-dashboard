@@ -24,14 +24,22 @@
   </header>
 
   <main class="container">
+    <aside>
 
-    <form id="searchForm">
-      <div class="ol-12 col-sm-6 col-lg-2 mb-3">
-        <label for="Search" class="form-label">Search for a city:</label>
-        <input type="city" class="form-control" id="citySearch" aria-describedby="emailHelp">
+      <form id="searchForm">
+        <div class="ol-12 col-sm-6 col-lg-2 mb-3">
+          <label for="Search" class="form-label">Search for a city:</label>
+          <input type="city" class="form-control" id="citySearch" aria-describedby="emailHelp">
+        </div>
+        <button type="submit" class="btn btn-primary" id="searchButton">Search</button>
+      </form>
+
+      <div>
+        
       </div>
-      <button type="submit" class="btn btn-primary" id="searchButton">Search</button>
-    </form>
+
+    </aside>
+
 
     <section class="row">
       <div class="col12 col-md-9" id="currentWeather">
@@ -47,6 +55,8 @@
       </div>
 
     </section>
+
+  </main>
     
 </body>
 
