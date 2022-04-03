@@ -25,7 +25,7 @@ THEN I am again presented with current and future conditions for that city
 ```
 
 ## Link to Application:
-<!--  -->
+https://bkhandag.github.io/weather-dashboard/
 
 ## Pseudo Code:
 1. Upon page load, hide all layout except the search capability
@@ -38,5 +38,8 @@ THEN I am again presented with current and future conditions for that city
 1. Populate body of webpage for 5 day weather forcast for selected city
 1. Toggle between cities in "history"
 
+## WireFrame:
+!["WireFrame"](Weather_Ds_wireframe.jpeg)
+
 ## Screenshot
-<!-- !["Work Day Scheduler".](work_day_scheduler.png) -->
+!["Weather Dashboard"](weather_ds.png)

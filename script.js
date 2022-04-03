@@ -6,10 +6,10 @@ var geoAPIKey = "9044442a1482ebbe84959ed380a83fe4";
 var OneCallAPIKey = "3ca88eca3a5f704be8164373cde6ffaf";
 var currentWeatherEl = document.getElementById("currentWeather");
 var fiveDayForecastEl = document.getElementById("fiveDayForecast");
-//console.log(cityToBeSearched);
 var lat;
 var lon;
 var city;
+var currentDateFormat;
 
 
 function getApi(event) {
@@ -42,15 +42,28 @@ function getApi(event) {
 searchFormEl.addEventListener('submit', getApi);
 
 function newAPICall(lat,lon) {
-    var requestOneCallUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=metric&appid=${OneCallAPIKey}`;
+    var requestOneCallUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=imperial&appid=${OneCallAPIKey}`;
     fetch(requestOneCallUrl)
     .then(function (response) {
         return response.json();
     })
     .then(function(data) {
+
+        calculateTime(data.current.dt);
         printCurrentWeather(data);
         printfiveDayForecast(data);
+
     });
+}
+
+function calculateTime(data) {
+
+    const currentDate = new Date(data*1000);
+    const day = currentDate.getDate();
+    const month = currentDate.getMonth()+1;
+    const year = currentDate.getFullYear();
+    currentDateFormat = `${month}/${day}/${year}`;
+    return(currentDateFormat);
 }
 
 function printCurrentWeather(data) {
@@ -69,19 +82,19 @@ function printCurrentWeather(data) {
 
     var cityDateEl = document.createElement("h3");
     cityDateEl.classList.add("card-title");
-    cityDateEl.textContent = city;
+    cityDateEl.textContent = `${city} (${currentDateFormat})`;
 
     var tempEl = document.createElement("p");
     tempEl.classList.add("card-text");
-    tempEl.textContent = `Temp: ${data.current.temp}`;
+    tempEl.textContent = `Temp: ${data.current.temp} F`;
     
     var windEl = document.createElement("p");
     windEl.classList.add("card-text");
-    windEl.textContent = `Wind Speed: ${data.current.wind_speed}`;
+    windEl.textContent = `Wind: ${data.current.wind_speed} MPH`;
     
     var humidityEl = document.createElement("p");
     humidityEl.classList.add("card-text");
-    humidityEl.textContent = `Humidity: ${data.current.humidity}`;
+    humidityEl.textContent = `Humidity: ${data.current.humidity} %`;
 
     var uvIndexEl = document.createElement("p");
     uvIndexEl.classList.add("card-text");
@@ -103,25 +116,26 @@ function printfiveDayForecast(data) {
         fiveDayForecastCardBodyEl.classList.add("card-body");
         fiveDayForecastCardEl.append(fiveDayForecastCardBodyEl);
     
-        var cityDateEl = document.createElement("h3");
+        var cityDateEl = document.createElement("h5");
         cityDateEl.classList.add("card-title");
-        cityDateEl.textContent = "Date here";
+        currentDateFormat = calculateTime(data.daily[i].dt)
+        cityDateEl.textContent = currentDateFormat;
     
-        var iconEl = document.createElement("p");
-        iconEl.classList.add("card-text");
-        iconEl.textContent = "Icon here";
+        var iconEl = document.createElement("img");
+        iconEl.setAttribute('src',`https://openweathermap.org/img/wn/${data.daily[i].weather[0].icon}@2x.png`);
+        iconEl.setAttribute('height', '32px');
     
         var tempEl = document.createElement("p");
         tempEl.classList.add("card-text");
-        tempEl.textContent = `Temp: ${data.daily[i].temp.day}`;
+        tempEl.textContent = `Temp: ${data.daily[i].temp.day} F`;
         
         var windEl = document.createElement("p");
         windEl.classList.add("card-text");
-        windEl.textContent = `Wind Speed: ${data.daily[i].wind_speed}`;
+        windEl.textContent = `Wind: ${data.daily[i].wind_speed} MPH`;
         
         var humidityEl = document.createElement("p");
         humidityEl.classList.add("card-text");
-        humidityEl.textContent = `Humidity: ${data.daily[i].humidity}`;
+        humidityEl.textContent = `Humidity: ${data.daily[i].humidity} %`;
         
         fiveDayForecastCardBodyEl.append(cityDateEl, iconEl, tempEl, windEl, humidityEl);
     }
