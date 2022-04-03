@@ -5,6 +5,7 @@ var fetchButton = document.getElementById("searchButton");
 var geoAPIKey = "9044442a1482ebbe84959ed380a83fe4";
 var OneCallAPIKey = "3ca88eca3a5f704be8164373cde6ffaf";
 var currentWeatherEl = document.getElementById("currentWeather");
+var fiveDayForecastEl = document.getElementById("fiveDayForecast");
 //console.log(cityToBeSearched);
 var lat;
 var lon;
@@ -41,19 +42,23 @@ function getApi(event) {
 searchFormEl.addEventListener('submit', getApi);
 
 function newAPICall(lat,lon) {
-    var requestOneCallUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${OneCallAPIKey}`;
+    var requestOneCallUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=metric&appid=${OneCallAPIKey}`;
     fetch(requestOneCallUrl)
     .then(function (response) {
         return response.json();
     })
     .then(function(data) {
         printCurrentWeather(data);
+        printfiveDayForecast(data);
     });
 }
 
 function printCurrentWeather(data) {
 
     console.log(data);
+    //Clearing any prior content in 
+    currentWeatherEl.innerHTML= "";
+
     var currentWeatherCardEl = document.createElement("div");
     currentWeatherCardEl.classList.add('card', 'bg-light','text-dark','mb-3','p-3');
     currentWeatherEl.append(currentWeatherCardEl);
@@ -83,4 +88,9 @@ function printCurrentWeather(data) {
     uvIndexEl.textContent = `UV Index: ${data.current.uvi}`;
     
     currentWeatherCardBodyEl.append(cityDateEl, tempEl, windEl, humidityEl, uvIndexEl);
+}
+
+function printfiveDayForecast(data) {
+
+
 }
